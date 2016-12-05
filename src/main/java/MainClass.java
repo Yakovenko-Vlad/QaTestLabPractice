@@ -22,12 +22,9 @@ public class MainClass {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("b_title"))));
         System.out.println("Search title is \""+driver.getTitle()+"\"");
         System.out.println("\nResult Titles:");
-        /*List<WebElement> list = driver.findElements(By.xpath(".//*[@id='b_results']/li/div[1]/h2/a"));
-        for (int i=0;i<list.size();i++)
-            System.out.println(list.get(i).getText());*/
         List<WebElement> list = driver.findElements(By.className("b_title"));
         for(int i=0;i<list.size();i++)
-            System.out.println(list.get(i).getText().replaceFirst("Перевести эту страницу"," "));
+            System.out.println(list.get(i).findElement(By.tagName("h2")).getText());
         driver.quit();
     }
 }
