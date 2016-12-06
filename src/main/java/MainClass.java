@@ -21,6 +21,10 @@ public class MainClass {
         driver.findElement(By.id("sb_form_go")).click();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("b_title"))));
         System.out.println("Search title is \""+driver.getTitle()+"\"");
+        System.out.println("\nResult Titles:");
+        List<WebElement> list = driver.findElements(By.className("b_title"));
+        for(int i=0;i<list.size();i++)
+            System.out.println(list.get(i).findElement(By.tagName("h2")).getText());
         driver.quit();
     }
 }
