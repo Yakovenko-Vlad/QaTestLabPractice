@@ -1,27 +1,41 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.swing.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Яковенко Влад on 02.12.2016.
  */
 public class MainClass {
-    public static void main(String[] args){
-        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"/drivers/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        driver.get("https://www.bing.com/");
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("sb_form_q"))));
-        driver.findElement(By.id("sb_form_q")).sendKeys("automation");
-        driver.findElement(By.id("sb_form_go")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("b_title"))));
-        System.out.println("Search title is \""+driver.getTitle()+"\"");
-        driver.quit();
+    public static void main(String[] args) throws InterruptedException {
+        Automation object = new Automation();
+        object.automation();
+
+
+
+
+        /*Actions builder = new Actions(driver);
+        builder.clickAndHold(date).build().perform();
+        builder.release().build().perform();*/
+
+
+
+
+        //.//*[@id='mmComponent_images_1_list_6']/li[7]/div/div[1]/a/div/img
+        //.//*[@id='mmComponent_images_1_list_6']/li[11]/div/div[1]/a/div/img
+
+        //.//*[@id='mmComponent_images_1_list_6']/li[7]/div/div[1]/a/div/img
+        //.//*[@id='mmComponent_images_1_list_6']/li[12]/div/div[1]/a/div/img
+
+
+
+
+        //
     }
 }
 
