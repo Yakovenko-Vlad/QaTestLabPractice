@@ -25,7 +25,7 @@ public class Automation {
         driver.get("https://www.bing.com/");
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("sb_form_q"))));
         driver.findElement(By.id("scpl1")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("mainImage"))));
+        wait.until(ExpectedConditions.titleContains("Лента изображений Bing"));
     }
 
     /**

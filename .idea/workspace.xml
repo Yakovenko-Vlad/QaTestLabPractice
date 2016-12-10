@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95565b02-7e80-407e-9fb0-b4df3916f2fc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/MainClass.class" afterPath="$PROJECT_DIR$/target/classes/MainClass.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Automation.java" afterPath="$PROJECT_DIR$/src/main/java/Automation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/MainClass.java" afterPath="$PROJECT_DIR$/src/main/java/MainClass.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,7 +33,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainClass.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainClass.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainClass.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
@@ -45,17 +43,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Automation.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Automation.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Automation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="56" column="58" lean-forward="false" selection-start-line="56" selection-start-column="58" selection-end-line="56" selection-end-column="58" />
+            <state relative-caret-position="-289">
+              <caret line="27" column="75" lean-forward="false" selection-start-line="27" selection-start-column="75" selection-end-line="27" selection-end-column="75" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#Automation#0" expanded="false" />
                 <element signature="method#Automation#0;class#Automation#0" expanded="false" />
                 <element signature="docComment;method#openImagesPage#0;class#Automation#0" expanded="false" />
-                <element signature="method#openImagesPage#0;class#Automation#0" expanded="false" />
                 <element signature="docComment;method#scrollPage#0;class#Automation#0" expanded="false" />
                 <element signature="docComment;method#searchImages#0;class#Automation#0" expanded="false" />
                 <element signature="docComment;method#setDate#0;class#Automation#0" expanded="false" />
@@ -447,7 +444,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481135883111</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Full working version">
+      <created>1481398856529</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1481398856529</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -485,7 +489,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Working version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working version" />
+    <MESSAGE value="Full working version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Full working version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -523,7 +528,6 @@
             <element signature="docComment;class#Automation#0" expanded="false" />
             <element signature="method#Automation#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#openImagesPage#0;class#Automation#0" expanded="false" />
-            <element signature="method#openImagesPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#scrollPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#searchImages#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#setDate#0;class#Automation#0" expanded="false" />
@@ -558,7 +562,6 @@
             <element signature="docComment;class#Automation#0" expanded="false" />
             <element signature="method#Automation#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#openImagesPage#0;class#Automation#0" expanded="false" />
-            <element signature="method#openImagesPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#scrollPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#searchImages#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#setDate#0;class#Automation#0" expanded="false" />
@@ -593,7 +596,6 @@
             <element signature="docComment;class#Automation#0" expanded="false" />
             <element signature="method#Automation#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#openImagesPage#0;class#Automation#0" expanded="false" />
-            <element signature="method#openImagesPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#scrollPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#searchImages#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#setDate#0;class#Automation#0" expanded="false" />
@@ -659,30 +661,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MainClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Automation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="56" column="58" lean-forward="false" selection-start-line="56" selection-start-column="58" selection-end-line="56" selection-end-column="58" />
+        <state relative-caret-position="-289">
+          <caret line="27" column="75" lean-forward="false" selection-start-line="27" selection-start-column="75" selection-end-line="27" selection-end-column="75" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#Automation#0" expanded="false" />
             <element signature="method#Automation#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#openImagesPage#0;class#Automation#0" expanded="false" />
-            <element signature="method#openImagesPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#scrollPage#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#searchImages#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#setDate#0;class#Automation#0" expanded="false" />
             <element signature="method#setDate#0;class#Automation#0" expanded="false" />
             <element signature="docComment;method#openImage#0;class#Automation#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MainClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
