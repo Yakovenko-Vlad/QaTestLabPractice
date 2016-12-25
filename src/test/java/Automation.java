@@ -1,25 +1,27 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Яковенко Влад
  */
 public class Automation {
-    EventFiringWebDriver driver;
+    RemoteWebDriver driver;
     public WebDriverWait wait;
     Actions builder;
-    public Automation(EventFiringWebDriver driver){
+
+    public Automation(RemoteWebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver, 10);
         builder = new Actions(driver);
     }
 
@@ -27,70 +29,44 @@ public class Automation {
         driver.get("https://www.bing.com/");
     }
 
-    public void imagePage(){
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("sb_form_q"))));
-        driver.findElement(By.id("scpl1")).click();
-        wait.until(ExpectedConditions.titleContains("Лента изображений Bing"));
-    }
-
-    public int[] scrollPage(int i){
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-        int [] array = new int[2];
-        array[0] = driver.findElements(By.className("mimg")).size();
-        jse.executeScript("window.scrollBy(0, document.body.scrollHeight)");
-        WebElement element = driver.findElement(By.xpath(".//*/li[" + ((i * 6) + 13) + "]/div/div[1]/a/div/img"));
-        wait.until(ExpectedConditions.visibilityOf(element));
-        array[1] = driver.findElements(By.className("mimg")).size();
-        return array;
-    }
-
-    public void scrollPageUp(){
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("window.scrollTo(0, 0)");
-    }
-
-    public ArrayList<String> readFile(){
-        ArrayList<String> words = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("words.txt")))){
-            String line;
-            while ((line = reader.readLine()) != null) {
-                words.add(line);
-            }
-        } catch (IOException e) {}
-        return words;
-    }
-
-    public String search(String word){
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("sb_form_q"))));
-        driver.findElement(By.id("sb_form_q")).clear();
+    public void searchWord(String word, String completeWord){
         driver.findElement(By.id("sb_form_q")).sendKeys(word);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.findElement(By.id("sb_form_go")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='dg_c']/div[1]/div/div[1]/div/a/img"))));
-        return driver.findElement(By.xpath(".//*[@id='dg_c']/div[1]/div/div[1]/div/a/img")).getAttribute("alt")+"";
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("sa_ul"))));
+        int count = driver.findElements(By.xpath(".//*[@id='sa_ul']/li")).size();//.//*[@id='sa_ul']/li[5]
+        for(int i=1;i<count;i++) {
+            WebElement searchElement = driver.findElement(By.xpath(".//*[@id='sa_ul']/li[" + i + "]/div"));
+            if (searchElement.getText().equals(completeWord)){
+                searchElement.click();
+                break;
+            }
+        }
+    }
+    ArrayList<String> url;
+    public void getUrl(){
+        url = new ArrayList<>();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("b_results"))));
+        List<WebElement> webelements= driver.findElements(By.xpath(".//*[@id='b_results']/li/div[2]/div/cite"));
+        for(WebElement element: webelements){
+            url.add(element.getText());
+            System.out.println(element.getText());
+        }
+        System.out.println(url.size());
     }
 
-    public boolean showImageInfo(){
-        builder.moveToElement(driver.findElement(By.xpath(".//*[@id='dg_c']/div[1]/div/div[1]/div/a/img"))).build().perform();
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(".//*[@id='detail']/img"))));
-        if(driver.findElement(By.cssSelector(".ovrf.ovrfIconMS")).isDisplayed() && driver.findElement(By.cssSelector(".ovrf.ovrfIconFA")).isDisplayed() &&
-                driver.findElement(By.cssSelector(".collicon.gen.favSav")).isDisplayed())
-                return true;
-        return false;
+    public Object[][] createObjectArray(){
+        getUrl();
+        Object[][] objectsArray = new Object[url.size()][2];
+        for(int i=0, j=0;i<url.size();i++, j++){
+            if(j==3) j++;
+                objectsArray[i][0] = ".//*[@id='b_results']/li[" + (j + 1) + "]/div[1]/h2/a";
+                objectsArray[i][1] = url.get(i);
+        }
+        return objectsArray;
     }
 
-    public void openSlideShow(){
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        builder.click(driver.findElement(By.cssSelector(".ovrf.ovrfIconMS"))).build().perform();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='iol_imw']/div[1]/span/span/img"))));
-        driver.findElement(By.xpath(".//*[@id='iol_imw']/div[1]/span/span/img"));
-
+    public void openPage(String xpath){
+        driver.findElement(By.xpath(xpath)).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-
-    public int showRelatedImages(){
-        driver.findElement(By.xpath(".//*[@id='mmComponent_images_4_1_1_exp']/span")).click();
-        return driver.findElements(By.xpath(".//*[@id='mmComponent_images_4_1_1_list']/li")).size();
-    }
-
 }

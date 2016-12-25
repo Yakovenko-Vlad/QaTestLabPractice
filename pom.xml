@@ -21,6 +21,13 @@
     </build>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/io.selendroid/selendroid-grid-plugin -->
+        <dependency>
+            <groupId>io.selendroid</groupId>
+            <artifactId>selendroid-grid-plugin</artifactId>
+            <version>0.17.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

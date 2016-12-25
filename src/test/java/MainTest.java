@@ -1,28 +1,49 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 /**
- * Created by Яковенко Влад on 17.12.2016.
+ * Created by Яковенко Влад
  */
 public class MainTest {
     Automation automation;
-    EventFiringWebDriver driver;
-
+    RemoteWebDriver driver;
     @BeforeClass
     public void run(){
-        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"/drivers/chromedriver.exe");
-        driver = new EventFiringWebDriver(new ChromeDriver());
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        driver.register(new EventHandler());
+        String browser = null;
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("browser.txt")));
+            browser=reader.readLine();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DesiredCapabilities capabilities=null;
+        switch (browser){
+            case "Chrome": capabilities = DesiredCapabilities.chrome(); break;
+            case "FireFox": capabilities = DesiredCapabilities.firefox(); break;
+            case "Android": capabilities = DesiredCapabilities.android(); break;
+        }
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         automation = new Automation(driver);
     }
 
@@ -34,57 +55,37 @@ public class MainTest {
     @Test(priority = 0)
     public void openBingTest(){
         automation.openBing();
-        assertEquals(driver.getCurrentUrl(), "https://www.bing.com/");
-    }
-    @Test(dependsOnMethods = {"openBingTest"})
-    public void imagePageTest(){
-        automation.imagePage();
-        assertEquals(driver.getTitle(), "Лента изображений Bing");
+        assertEquals(driver.findElement(By.xpath(".//*[@id='sbox']/div[1]")).getText(),"Bing");
     }
 
-    @Test(dependsOnMethods = {"imagePageTest"})
-    public void scrollPageTest(){
-        int scrollCount = 2;
-        for(int i=0;i<scrollCount;i++){
-            boolean bool=false;
-            int [] array = automation.scrollPage(i);
-            if(array[0]<array[1]) bool=true;
-            assertEquals(bool,true);
-        }
-        automation.scrollPageUp();
+    @Test(dependsOnMethods = "openBingTest")
+    public void searchLineTest(){
+        assertEquals(driver.findElement(By.id("sb_form_q")).isEnabled(), true);
+        assertEquals(driver.findElement(By.id("sb_form_go")).isEnabled(), true);
     }
 
     @DataProvider
-    public Object[][] dataProvide(){
-        ArrayList<String> words = automation.readFile();
+    public Object[][] dataProvider(){
         return new Object[][]{
-            {words.get(0),"automation"},
-            {words.get(1),"testing"},
-            {words.get(2),"QaTestLab"}
+                {"automatio","automation"}
         };
     }
 
-    @Test(dependsOnMethods = {"scrollPageTest"}, dataProvider = "dataProvide")
-    public void searchTest(String ar, String er){
-        assertEquals(automation.search(ar), "Результаты поиска изображений по запросу \"" +er+"\"");
+    @Test(dependsOnMethods = {"searchLineTest"}, dataProvider = "dataProvider")
+    public void searchWordTest(String incompleteWord, String completeWord){
+        automation.searchWord(incompleteWord, completeWord);
+        assertEquals(driver.getTitle(),completeWord+" - Bing");
     }
 
-    @Test(dependsOnMethods = {"searchTest"})
-    public void showImageInfoTest(){
-        assertEquals(automation.showImageInfo(), true);
-
-    }
-    @Test(dependsOnMethods = {"showImageInfoTest"})
-    public void openSlideShowTest(){
-        automation.openSlideShow();
-        assertEquals(driver.findElement(By.xpath(".//*[@id='iol_imw']/div[2]")).isEnabled(), true);
+    @DataProvider
+    public Object[][] urlProvider(){
+        return automation.createObjectArray();
     }
 
-
-    @Parameters({"minElementCount"})
-    @Test(dependsOnMethods = {"openSlideShowTest"})
-    public void showRelatedImagesTest(String minElementCount){
-        int count = Integer.parseInt(minElementCount);
-        Assert.assertTrue(automation.showRelatedImages()>=count);
+    @Test(dependsOnMethods = {"searchWordTest"}, dataProvider = "urlProvider")
+    public void checkUrl(String xpath,String url){
+        automation.openPage(xpath);
+        assertEquals(driver.getCurrentUrl().contains(url), true);
+        driver.navigate().back();
     }
 }
