@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="QaTestLabPractice" />
+        <module name="autotesting" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="QaTestLabPractice" target="1.5" />
+      <module name="autotesting" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
